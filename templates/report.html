@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Report — AI-HealthGuard</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <div class="navbar">
+    <div class="brand">🩺 AI-HealthGuard</div>
+    <div>
+      <a href="{{ url_for('dashboard') }}">Dashboard</a>
+      <a href="{{ url_for('disease_select') }}">New Prediction</a>
+      <a href="{{ url_for('history') }}">History</a>
+      <a href="{{ url_for('chatbot_page') }}">Assistant</a>
+      <a href="{{ url_for('logout') }}">Logout</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="card center">
+      <h2>📄 {{ disease.icon }} {{ disease.label }} Report Ready</h2>
+      <p class="muted">
+        Your report (result: <b>{{ result }}</b>) has been generated.
+      </p>
+      <a href="{{ url_for('report_download', prediction_id=prediction_id) }}" class="btn">Download PDF</a>
+      <a href="{{ url_for('result', prediction_id=prediction_id) }}" class="btn btn-outline">Back to Result</a>
+    </div>
+  </div>
+</body>
+</html>

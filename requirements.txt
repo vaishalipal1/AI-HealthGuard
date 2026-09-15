@@ -1,0 +1,10 @@
+Flask==3.0.3
+Flask-Login==0.6.3
+Werkzeug==3.0.3
+scikit-learn==1.5.1
+pandas==2.2.2
+numpy==1.26.4
+joblib==1.4.2
+shap==0.46.0
+matplotlib==3.9.1
+reportlab==4.2.2

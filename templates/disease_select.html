@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Choose a Screening — AI-HealthGuard</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <div class="navbar">
+    <div class="brand">🩺 AI-HealthGuard</div>
+    <div>
+      <a href="{{ url_for('dashboard') }}">Dashboard</a>
+      <a href="{{ url_for('disease_select') }}">New Prediction</a>
+      <a href="{{ url_for('history') }}">History</a>
+      <a href="{{ url_for('chatbot_page') }}">Assistant</a>
+      <a href="{{ url_for('logout') }}">Logout</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <h1 class="gradient-text">Which health screening do you need?</h1>
+    <p class="muted">Pick a condition below — you'll be asked for a few clinical parameters, and get an instant AI risk estimate with explanations.</p>
+
+    <div class="disease-grid mt-16">
+      {% for key, d in DISEASES.items() %}
+      <a href="{{ url_for('prediction', disease_key=key) }}" class="disease-card" style="--accent-color: {{ d.color }};">
+        <div class="disease-icon">{{ d.icon }}</div>
+        <div class="disease-name">{{ d.label }}</div>
+        <div class="disease-count">Tap to start</div>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</body>
+</html>

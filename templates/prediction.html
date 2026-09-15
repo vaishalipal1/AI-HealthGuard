@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ disease.label }} Prediction — AI-HealthGuard</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <div class="navbar">
+    <div class="brand">🩺 AI-HealthGuard</div>
+    <div>
+      <a href="{{ url_for('dashboard') }}">Dashboard</a>
+      <a href="{{ url_for('disease_select') }}">New Prediction</a>
+      <a href="{{ url_for('history') }}">History</a>
+      <a href="{{ url_for('chatbot_page') }}">Assistant</a>
+      <a href="{{ url_for('logout') }}">Logout</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="card" style="border-top: 5px solid {{ disease.color }};">
+      <h2>{{ disease.icon }} {{ disease.label }} Risk Prediction</h2>
+      <p class="muted" style="font-size:14px;">Enter the patient's clinical parameters below.</p>
+
+      <form method="POST">
+        <div class="grid-2">
+          {% for f in disease.features %}
+          <div class="form-group">
+            <label>{{ f.label }}</label>
+            {% if f.type == 'select' %}
+              <select name="{{ f.name }}" required>
+                {% for value, text in f.options %}
+                <option value="{{ value }}">{{ text }}</option>
+                {% endfor %}
+              </select>
+            {% else %}
+              <input type="number" step="{{ f.step or '1' }}" {% if f.min %}min="{{ f.min }}"{% endif %} name="{{ f.name }}" required>
+            {% endif %}
+            {% if f.hint %}<div class="hint">{{ f.hint }}</div>{% endif %}
+          </div>
+          {% endfor %}
+        </div>
+        <button type="submit" class="btn mt-16">Predict Risk</button>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

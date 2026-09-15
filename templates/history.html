@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>History — AI-HealthGuard</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <div class="navbar">
+    <div class="brand">🩺 AI-HealthGuard</div>
+    <div>
+      <a href="{{ url_for('dashboard') }}">Dashboard</a>
+      <a href="{{ url_for('disease_select') }}">New Prediction</a>
+      <a href="{{ url_for('history') }}">History</a>
+      <a href="{{ url_for('chatbot_page') }}">Assistant</a>
+      <a href="{{ url_for('logout') }}">Logout</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="card">
+      <h2 class="gradient-text">Prediction History</h2>
+      {% if rows %}
+      <table>
+        <tr><th>Date</th><th>Condition</th><th>Result</th><th>Probability</th><th>Top Reasons</th><th></th></tr>
+        {% for r in rows %}
+        <tr>
+          <td>{{ r['created_at'][:16] }}</td>
+          <td>{{ DISEASES[r['disease_key']].icon }} {{ DISEASES[r['disease_key']].label }}</td>
+          <td><span class="badge {{ r['result']|lower }}">{{ r['result'] }}</span></td>
+          <td>{{ (r['probability'] * 100) | round(1) }}%</td>
+          <td style="max-width:240px;font-size:12px;color:var(--muted);">{{ r['top_reasons'] }}</td>
+          <td>
+            <a href="{{ url_for('result', prediction_id=r['id']) }}">View</a> ·
+            <a href="{{ url_for('report', prediction_id=r['id']) }}">Report</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </table>
+      {% else %}
+      <p class="muted">No predictions yet.</p>
+      {% endif %}
+    </div>
+  </div>
+</body>
+</html>

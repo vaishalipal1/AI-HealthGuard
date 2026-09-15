@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Health Assistant — AI-HealthGuard</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <div class="navbar">
+    <div class="brand">🩺 AI-HealthGuard</div>
+    <div>
+      <a href="{{ url_for('dashboard') }}">Dashboard</a>
+      <a href="{{ url_for('disease_select') }}">New Prediction</a>
+      <a href="{{ url_for('history') }}">History</a>
+      <a href="{{ url_for('chatbot_page') }}">Assistant</a>
+      <a href="{{ url_for('logout') }}">Logout</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="card">
+      <h2 class="gradient-text">💬 HealthGuard Assistant</h2>
+      <p class="muted" style="font-size:14px;">Ask about glucose, BMI, blood pressure, cholesterol, kidney/liver markers, or your past results.</p>
+
+      <div class="chat-window" id="chatWindow">
+        <div class="chat-msg bot">Hi! I'm the HealthGuard Assistant 🤖. Ask me anything about your health parameters or past predictions.</div>
+      </div>
+
+      <div class="chip-row">
+        <button class="chip" onclick="sendQuick('What is a normal BMI?')">Normal BMI?</button>
+        <button class="chip" onclick="sendQuick('What was my last result?')">My last result</button>
+        <button class="chip" onclick="sendQuick('What is a normal blood pressure?')">Normal BP?</button>
+        <button class="chip" onclick="sendQuick('How does this app work?')">How it works</button>
+      </div>
+
+      <div class="chat-input-row">
+        <input type="text" id="chatInput" placeholder="Type your question..." onkeydown="if(event.key==='Enter') sendMessage();">
+        <button class="btn" onclick="sendMessage()">Send</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="{{ url_for('static', filename='js/chatbot.js') }}"></script>
+</body>
+</html>

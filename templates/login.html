@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ 'Sign Up' if mode == 'signup' else 'Login' }} — AI-HealthGuard</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <div class="navbar">
+    <div class="brand">🩺 AI-HealthGuard</div>
+  </div>
+
+  <div class="container">
+    <div class="card auth-card">
+      <h2 class="center">{{ 'Create Account' if mode == 'signup' else 'Welcome Back' }}</h2>
+
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% for category, msg in messages %}
+          <div class="flash {{ category }}">{{ msg }}</div>
+        {% endfor %}
+      {% endwith %}
+
+      <form method="POST">
+        <div class="form-group">
+          <label>Username</label>
+          <input type="text" name="username" required>
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" name="password" required>
+        </div>
+        <button type="submit" class="btn" style="width:100%;">
+          {{ 'Sign Up' if mode == 'signup' else 'Login' }}
+        </button>
+      </form>
+
+      <p class="center mt-16" style="font-size:13px;">
+        {% if mode == 'signup' %}
+          Already have an account? <a href="{{ url_for('login') }}">Login</a>
+        {% else %}
+          New here? <a href="{{ url_for('signup') }}">Create an account</a>
+        {% endif %}
+      </p>
+    </div>
+  </div>
+</body>
+</html>
